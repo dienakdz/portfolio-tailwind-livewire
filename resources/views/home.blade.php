@@ -1,43 +1,75 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex flex-col md:flex-row items-center md:items-start md:space-x-10">
-        
-        <!-- Avatar -->
-        <div class="flex-shrink-0 mb-6 md:mb-0 md:w-1/3 flex justify-center">
-            <img src="{{ asset('assets/images/avatar.jpg') }}" 
-                 alt="Avatar" 
-                 class="w-40 h-40 md:w-56 md:h-56 rounded-full shadow-lg object-cover">
+    <section class="flex flex-col md:flex-row items-center justify-between min-h-screen container-custom">
+        <div class="md:w-1/2 text-center md:text-left">
+            <h1 class="text-[#42446E] font-bold text-6xl dark:text-[#D9D9D9]">Hi 👋, <br> My name is <br> <span
+                    class="linear-right">Nguyen Minh Dien</span> <br> I build things for web</h1>
         </div>
-
-        <!-- Intro text -->
-        <div class="md:w-2/3 text-center md:text-left">
-            <h2 class="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
-                Hi, I'm <span class="text-blue-600">Dien Nguyen</span> 👋
-            </h2>
-
-            <p class="mt-4 text-base md:text-lg text-gray-600 leading-relaxed">
-                I'm a web developer specializing in modern applications with 
-                <span class="font-semibold">Laravel</span>, 
-                <span class="font-semibold">Livewire</span>, and 
-                <span class="font-semibold">Tailwind CSS</span>.
-            </p>
-
-            <!-- CTA Buttons -->
-            <div class="mt-6 flex flex-col sm:flex-row sm:justify-center md:justify-start gap-4">
-                <a href="/projects" 
-                   class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
-                    🚀 View Projects
-                </a>
-                <a href="/contact" 
-                   class="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition">
-                    ✉️ Contact Me
-                </a>
-                <a href="/cv.pdf" 
-                   class="px-6 py-3 border border-gray-400 text-gray-700 rounded-lg hover:bg-gray-100 transition">
-                    📄 Download CV
-                </a>
+        <div class="md:w-1/2 flex justify-center md:justify-end mt-6 md:mt-0">
+            <div class="rounded-full p-[6px] bg-gradient-to-b from-[#00C0FD] to-[#E70FAA] inline-block">
+                <img src="{{ asset('assets/images/avatar.jpg') }}" alt="" class="rounded-full w-xs h-xs ">
             </div>
         </div>
-    </div>
+    </section>
+    <section class="container-custom text-center">
+        <div>
+            <p class="text-[#42446E] font-bold dark:darkText text-[48px]">My Tech Stack</p>
+            <p class="lightContent text-[32px] dark:darkContent font-normal"> Technologies I’ve been working with recently
+            </p>
+        </div>
+        <div class="grid grid-cols-6 gap-x-[100px] gap-y-[80px] mt-[140px] mb-[200px]">
+            <img src="{{ asset('assets/images/logo-html.svg') }}" alt="" class="w-[120px] h-[120px]">
+            <img src="{{ asset('assets/images/logo-css.svg') }}" alt="" class="w-[120px] h-[120px]">
+            <img src="{{ asset('assets/images/logo-js.svg') }}" alt="" class="w-[120px] h-[120px]">
+            <img src="{{ asset('assets/images/logo-jquery.svg') }}" alt="" class="w-[120px] h-[120px]">
+            <img src="{{ asset('assets/images/logo-react.svg') }}" alt="" class="w-[120px] h-[120px]">
+            <img src="{{ asset('assets/images/logo-tailwind.svg') }}" alt="" class="w-[120px] h-[120px]">
+            <img src="{{ asset('assets/images/logo-boostrap.svg') }}" alt="" class="w-[120px] h-[120px]">
+            <img src="{{ asset('assets/images/logo-php.svg') }}" alt="" class="w-[120px] h-[120px]">
+            <img src="{{ asset('assets/images/logo-laravel.svg') }}" alt="" class="w-[120px] h-[120px]">
+            <img src="{{ asset('assets/images/logo-vscode.svg') }}" alt="" class="w-[120px] h-[120px]">
+            <img src="{{ asset('assets/images/logo-github.svg') }}" alt=""
+                class="rounded-full w-[120px] h-[120px] bg-black dark:bg-transparent">
+            <img src="{{ asset('assets/images/git-icon.svg') }}" alt="" class="w-[120px] h-[120px]">
+        </div>
+    </section>
+    <section class="container-custom">
+        <div class="text-center">
+            <p class="text-[#42446E] font-bold dark:darkText text-[48px]">Projects</p>
+            <p class="lightContent text-[32px] dark:darkContent font-normal">Things I’ve built so far</p>
+        </div>
+        <div class="grid grid-cols-3 gap-x-[48px] gap-y-[65px] mt-[100px] mb-[200px]">
+            @foreach ($projects as $project)
+                <div class="rounded-4xl flex flex-col overflow-hidden shadow-lg dark:shadow-none">
+                    <img src="{{ $project->thumbnail }}" alt="{{ $project->title }}">
+
+                    <div class="flex flex-col p-[25px] bg-white dark:bg-projects flex-1">
+                        <p class="text-black font-medium text-[28px] dark:darkText flex-1">{{ $project->title }}</p>
+                        <p class="lightContent font-light text-lg mt-[20px] mb-[20px] dark:darkText flex-1">
+                            {{ $project->short_desc }}</p>
+                        <p class="lightContent text-sm mb-[20px] dark:darkText">Tech stack :
+                            {{ is_array($project->tech_stack) ? implode(', ', $project->tech_stack) : $project->tech_stack }}
+                        </p>
+
+                        <div class="flex items-center justify-between w-full">
+                            <div class="flex gap-2">
+                                <img src="{{ asset('assets/images/icons-link.png') }}"
+                                    class="w-[20px] h-[20px] bg-black dark:bg-none" alt="">
+                                <a href="{{ $project->link_demo ?? '#' }}" class="text-base underline dark:text-white">Link
+                                    Preview</a>
+                            </div>
+                            <div class="flex gap-2">
+                                <img src="{{ asset('assets/images/logo-github.svg') }}"
+                                    class="w-[20px] h-[20px] bg-black dark:bg-none" alt="">
+                                <a href="{{ $project->link_github ?? '#' }}"
+                                    class="text-base underline dark:text-white">View Code</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+        </div>
+    </section>
 @endsection
